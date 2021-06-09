@@ -1,30 +1,52 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "encuesta";
+include("conex.php");
+Conectarse();
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+?>
+
+<html>
+<head>
+<title>Ejemplo de PHP</title>
+</head>
+<body>
+<hr>
+
+<TABLE BORDER=1 CELLSPACING=1 CELLPADDING=1>
+  <TR>
+    <TD>&nbsp;<B>Nombre</B></TD> 
+  </TR>
+<?php
+while($row = mysql_fetch_array($result)) {
+printf("
+  <tr>
+    <td>&nbsp;%s</td> 
+  </tr>", 
+       $row["nombre"]
+	   
+	   );
 }
 
-$sql = "
-INSERT INTO registro 
-(
-nombre
-) 
-VALUES (
-'John'
-)";
+?>
+</table>
+</body>
+</html>
 
-if ($conn->query($sql) === TRUE) {
-  echo "New record created successfully";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
+<?php
+	$sql = "
+	INSERT INTO registro 
+	(
+	nombre
+	) 
+	VALUES (
+	'John'
+	)";
 
-$conn->close();
+	if ($conn->query($sql) === TRUE) {
+	  echo "New record created successfully";
+	} else {
+	  echo "Error: " . $sql . "<br>" . $conn->error;
+	}
+
+	$conn->close();
+
 ?>
